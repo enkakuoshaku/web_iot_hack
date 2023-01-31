@@ -5,21 +5,12 @@
   <title>360° Image</title>
   <meta name="description" content="360° Image - A-Frame">
   <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
-  <style>
-    #scene, a-scene {
-      width: 80%;
-      height: 400px;
-    }
-  </style>
 </head>
 <body>
-  <div id="scene">
-    <a-scene embedded>
-      <!-- 上下 左右 傾き -->
-      <a-sky id="org" src="theta.jpg" rotation="0 0 0"></a-sky>
-    </a-scene>
-  </div>
-  <canvas id="cvs" width="80%" height="400px">
+  <a-scene>
+    <!-- 上下 左右 傾き -->
+    <a-sky id="org" src="theta.jpg" rotation="0 0 0"></a-sky>
+  </a-scene>
   <script>
     const elmOrg = document.getElementById("org");
     var angle = 0;
