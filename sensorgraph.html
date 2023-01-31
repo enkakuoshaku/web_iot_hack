@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <script type="module" src="https://chirimen.org/remote-connection/js/beta/RelayServerGlobal.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
+  <script>
+
+var chartVal = []; // グラフデータ（描画するデータ）
+
+// グラフ描画処理
+function drawChart() {
+  var ctx = document.getElementById('chart').getContext('2d');
+  window.myChart = new Chart(ctx, { // インスタンスをグローバル変数で生成
+    type: 'scatter',
+    data: { // ラベルとデータセット
+      datasets: [{
+          data: chartVal, // グラフデータ
+      }],
+    },
+  });
+}
+
+    // Remote Example4 - controller
+    //import {RelayServer} from "https://chirimen.org/remote-connection/js/beta/RelayServer.js";
+
+    var channel;
+    onload = async function(){
+      // webSocketリレーの初期化
+      var relay = RelayServer("chirimentest", "chirimenSocket" );
+      channel = await relay.subscribe("chirimenSW");
+      messageDiv.innerText = "web socketリレーサービスに接続しました";
+      channel.onmessage = getMessage;
+      drawChart(); // グラフを再描画
+    }
+
+    function getMessage(msg){ // メッセージを受信したときに起動する関数
+      console.log(msg);
+      messageDiv.innerText = msg.data;
+      var arr = msg.data.split(",");
+      chartVal.push({'x': arr[0], 'y': arr[1]});
+      if (myChart) {
+        myChart.destroy();
+      }
+      drawChart(); // グラフを再描画
+    }
+  </script>
+  <body>
+    <h3 id="deviceTitle">Remote Example - SW Status Display</h3>
+    <div id="messageDiv" ></div>
+    <canvas id="chart" height="200"></canvas>
+  </body>
+</html>
