@@ -29,7 +29,7 @@ function drawChart() {
     onload = async function(){
       // webSocketリレーの初期化
       var relay = RelayServer("chirimentest", "chirimenSocket" );
-      channel = await relay.subscribe("chirimenSW");
+      channel = await relay.subscribe("shoot-ito");
       messageDiv.innerText = "web socketリレーサービスに接続しました";
       channel.onmessage = getMessage;
       drawChart(); // グラフを再描画
