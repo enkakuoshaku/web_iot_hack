@@ -1,0 +1,24 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ThView.js - JavaScript Spherical Image Viewer</title>
+    <script type="text/javascript" src="/static/three.min.js"></script>
+    <script type="text/javascript" src="/static/thview.js"></script>
+</head>
+
+<body>
+    <div id="image1" style="position:absolute;top:0px;left:0px;"></div>
+    <script type="text/javascript" >
+        var img1 = new ThView({
+            id:'image1',
+            file: '/video_feed',
+            width: 980,
+            height: 560,
+            zoom: 100,
+            firstview: 90
+        });
+    </script>
+</body>
+</html>
