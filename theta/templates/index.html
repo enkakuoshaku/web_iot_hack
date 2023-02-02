@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
   <title>Team Shot</title>
   <meta charset="utf-8">
@@ -9,36 +9,8 @@
   <div id="container"></div>
   <script type="module" src="https://chirimen.org/remote-connection/js/beta/RelayServerGlobal.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
-  <script src="three.min.js"></script>
+  <script src="/static/three.min.js"></script>
   <script>
-    console.log(window.location.href);
-    const hikaku = window.location.href.slice(-7) == '?hikaku' ? true : false;
-
-    // Remote Example4 - controller
-    //import {RelayServer} from "https://chirimen.org/remote-connection/js/beta/RelayServer.js";
-
-    var channel;
-    onload = async function(){
-      console.log("web socketリレーサービスに接続しました");
-      // webSocketリレーの初期化
-      var relay = RelayServer("chirimentest", "chirimenSocket" );
-      channel = await relay.subscribe("shoot-ito");
-      channel.onmessage = getMessage;
-    }
-
-    function getMessage(msg){ // メッセージを受信したときに起動する関数
-      if (hikaku) {
-        return;
-      }
-      console.log(msg);
-      var arr = msg.data.split(",");
-      var radian = Math.atan2( arr[1] - 0.0, arr[0] - 0.0);
-      var angle = (radian / Math.PI + 1.0) / 2.0;    // 0.0～1.0
-      lon = angle * 360;       // 0-360
-      material.map.needsUpdate = true;
-    }
-
-
     var camera, scene, renderer, material;
 
     var fov = 70,
@@ -145,6 +117,33 @@
     function timer() {
       material.map.needsUpdate = true;
       setTimeout(timer, 100);
+    }
+
+    console.log(window.location.href);
+    const hikaku = window.location.href.slice(-7) == '?hikaku' ? true : false;
+
+    // Remote Example4 - controller
+    //import {RelayServer} from "https://chirimen.org/remote-connection/js/beta/RelayServer.js";
+
+    var channel;
+    onload = async function(){
+      console.log("web socketリレーサービスに接続しました");
+      // webSocketリレーの初期化
+      var relay = RelayServer("chirimentest", "chirimenSocket" );
+      channel = await relay.subscribe("shoot-ito");
+      channel.onmessage = getMessage;
+    }
+
+    function getMessage(msg){ // メッセージを受信したときに起動する関数
+      if (hikaku) {
+        return;
+      }
+      console.log(msg);
+      var arr = msg.data.split(",");
+      var radian = Math.atan2( arr[1] - 0.0, arr[0] - 0.0);
+      var angle = (radian / Math.PI + 1.0) / 2.0;    // 0.0～1.0
+      lon = angle * 360;       // 0-360
+      material.map.needsUpdate = true;
     }
   </script>
 </body>
