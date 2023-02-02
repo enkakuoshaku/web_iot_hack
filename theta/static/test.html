@@ -1,10 +1,33 @@
-<html>
-   <head>
-       <title>FZ5050</title>
-   </head>
-   <body>
-       <h1>Hello</h1>
-       <h3>Live Streaming</h3>
-       <img src="/video_feed">
-   </body>
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ThView.js - JavaScript Spherical Image Viewer</title>
+  <script type="text/javascript" src="/static/three.min.js"></script>
+  <script type="text/javascript" src="/static/thview.js"></script>
+</head>
+
+<body>
+  <div id="image1" style="position:absolute;top:0px;left:0px;"></div>
+  <script type="text/javascript" >
+    var img1 = new ThView({
+      id:'image1',
+      file: 'thview.jpg',
+      width: 980,
+      height: 560,
+      zoom: 100,
+      firstview: 90
+    });
+    var y = 0;
+    function timer() {
+      console.log(img1.mesh.rotation.x, img1.mesh.rotation.y);
+      img1.mesh.rotation.y = y;
+      y += 0.1;
+      // 1.0で一周
+      setTimeout(timer, 1000);
+    }
+    setTimeout(timer, 1000);
+  </script>
+</body>
 </html>

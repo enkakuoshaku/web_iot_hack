@@ -1,10 +1,29 @@
+<!DOCTYPE html>
 <html>
-   <head>
-       <title>FZ5050</title>
-   </head>
-   <body>
-       <h1>Hello</h1>
-       <h3>Live Streaming</h3>
-       <img src="{{ url_for('video_feed') }}">
-   </body>
+<head>
+  <meta charset="utf-8">
+  <title>360Åã Image</title>
+  <meta name="description" content="360Åã Image - A-Frame">
+  <!--script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script-->
+  <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+</head>
+<body>
+  <a-scene>
+    <!-- è„â∫ ç∂âE åXÇ´ -->
+    <!--a-sky id="org" src="theta.jpg" rotation="0 0 0"></a-sky-->
+    <a-sky id="org" src="{{ url_for('video_feed') }}" rotation="0 0 0"></a-sky>
+  </a-scene>
+  <script>
+    const elmOrg = document.getElementById("org");
+    var angle = 0;
+    function view() {
+      angle += 10;
+      elmOrg.setAttribute('rotation', '0 ' + angle + ' 0');
+      setTimeout(view, 1000);
+    }
+    setTimeout(view, 2000);
+
+  </script>
+</body>
+
 </html>
