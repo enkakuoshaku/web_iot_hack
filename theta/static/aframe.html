@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>360° Image</title>
+  <meta name="description" content="360° Image - A-Frame">
+  <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+</head>
+<body>
+    <a-scene>
+      <!-- 上下 左右 傾き -->
+      <a-sky id="org" src="theta.jpg" rotation="0 0 0"></a-sky>
+    </a-scene>
+  <script>
+    const elmOrg = document.getElementById("org");
+    var angle = 0;
+    function view() {
+      angle += 10;
+      elmOrg.setAttribute('rotation', '0 ' + angle + ' 0');
+      setTimeout(view, 1000);
+    }
+    setTimeout(view, 2000);
+
+  </script>
+</body>
+
+</html>
